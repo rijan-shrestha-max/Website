@@ -7,4 +7,8 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
   },
+  server: {
+    port: 5174,
+    open: true,
+  },
 })
