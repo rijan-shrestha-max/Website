@@ -542,6 +542,9 @@
             .hero-content { padding: 30px; }
             .hero-name-first, .hero-name-last { font-size: 60px; }
             .hero-center { font-size: 10px; }
+            .scroll-down { bottom: 30px; }
+            .scroll-down-arrow { width: 20px; height: 20px; border-width: 1.5px; }
+            .scroll-down-arrow::after { font-size: 10px; }
             .skills-strip { padding: 40px 30px; gap: 10px; }
             .skill-tag { padding: 8px 16px; font-size: 9px; }
             .portfolio-section { padding: 60px 30px; }
@@ -558,6 +561,17 @@
             .contact { padding: 60px 30px; }
             .contact-email { font-size: 28px; margin-bottom: 40px; }
             .contact-socials { flex-direction: column; gap: 15px; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-name-first, .hero-name-last { font-size: 48px; }
+            .hero-center { font-size: 9px; }
+            .scroll-down { bottom: 20px; }
+            .scroll-down-arrow { width: 18px; height: 18px; }
+            .portfolio-title { font-size: 24px; }
+            .portfolio-filters { flex-direction: column; gap: 10px; width: 100%; }
+            .portfolio-filters button { width: 100%; }
+            .contact-email { font-size: 20px; }
         }
     </style>
 </head>
