@@ -192,6 +192,45 @@
             to { opacity: 1; transform: translateX(0); }
         }
         
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            cursor: pointer;
+        }
+        
+        .scroll-down-arrow {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-down-arrow::after {
+            content: '↓';
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: bold;
+            animation: chevronBounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes chevronBounce {
+            0% { transform: translateY(-6px); opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { transform: translateY(2px); opacity: 0.6; }
+        }
+        
         .skills-strip {
             padding: 80px 60px;
             display: flex;
@@ -536,6 +575,9 @@
             <div class="hero-bottom">
                 <div class="hero-name-last">SHRESTHA</div>
             </div>
+            <div class="scroll-down">
+                <div class="scroll-down-arrow"></div>
+            </div>
         </div>
     </section>
     
@@ -599,6 +641,14 @@
     </section>
     
     <script>
+        // Scroll down button
+        const scrollDownBtn = document.querySelector('.scroll-down');
+        if (scrollDownBtn) {
+            scrollDownBtn.addEventListener('click', () => {
+                window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            });
+        }
+
         const cursor = document.getElementById('ember-cursor');
         const colors = ['#c8763a','#e8a050','#ffd080','#e8e2d5','#f0c080'];
         let lastSpawn = 0;
