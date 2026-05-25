@@ -19,6 +19,54 @@
             --transition: 0.3s ease;
         }
         
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f8f6f3;
+                --text: #0a0a0a;
+                --accent: #c8763a;
+                --muted: #999999;
+            }
+        }
+        
+        html.light-mode {
+            --bg: #f8f6f3;
+            --text: #0a0a0a;
+            --accent: #c8763a;
+            --muted: #999999;
+        }
+        
+        html.dark-mode {
+            --bg: #0a0a0a;
+            --text: #e8e2d5;
+            --accent: #c8763a;
+            --muted: #555555;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: var(--accent);
+            border: none;
+            color: var(--bg);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(200, 118, 58, 0.3);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(200, 118, 58, 0.5);
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -317,6 +365,21 @@
             border-left: none;
             border-top: none;
             animation: slideInRight 1.2s ease-out 0.4s both;
+        }
+        
+        .hero-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0.15;
+            z-index: 1;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        
+        .hero-bubble:hover {
+            opacity: 0.25;
         }
         
         .skills-strip {
@@ -673,6 +736,7 @@
 </head>
 <body>
     <div id="ember-cursor"></div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
     
     <section class="hero grain-bg">
         <!-- Decorative elements -->
@@ -683,6 +747,16 @@
         <div class="hero-dot hero-dot-3"></div>
         <div class="hero-corner-accent hero-corner-top-left"></div>
         <div class="hero-corner-accent hero-corner-bottom-right"></div>
+        
+        <!-- Interactive bubbles -->
+        <div class="hero-bubble" style="width: 70px; height: 70px; top: 12%; left: 5%;"></div>
+        <div class="hero-bubble" style="width: 50px; height: 50px; top: 55%; right: 8%;"></div>
+        <div class="hero-bubble" style="width: 45px; height: 45px; bottom: 18%; left: 10%;"></div>
+        <div class="hero-bubble" style="width: 65px; height: 65px; top: 35%; right: 5%;"></div>
+        <div class="hero-bubble" style="width: 40px; height: 40px; top: 75%; right: 20%;"></div>
+        <div class="hero-bubble" style="width: 55px; height: 55px; bottom: 22%; right: 12%;"></div>
+        <div class="hero-bubble" style="width: 35px; height: 35px; top: 20%; right: 3%;"></div>
+        <div class="hero-bubble" style="width: 60px; height: 60px; bottom: 28%; left: 25%;"></div>
         
         <div class="hero-content">
             <div class="hero-top">
@@ -760,6 +834,47 @@
     </section>
     
     <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Initialize theme from localStorage or system preference
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+            
+            if (isDark) {
+                htmlElement.classList.add('dark-mode');
+                htmlElement.classList.remove('light-mode');
+                themeToggle.textContent = '☀️';
+            } else {
+                htmlElement.classList.add('light-mode');
+                htmlElement.classList.remove('dark-mode');
+                themeToggle.textContent = '🌙';
+            }
+        }
+        
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            const isDarkMode = htmlElement.classList.contains('dark-mode');
+            
+            if (isDarkMode) {
+                htmlElement.classList.remove('dark-mode');
+                htmlElement.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙';
+            } else {
+                htmlElement.classList.remove('light-mode');
+                htmlElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        });
+        
+        // Initialize on page load
+        initTheme();
+        
         // Scroll down button
         const scrollDownBtn = document.querySelector('.scroll-down');
         if (scrollDownBtn) {
@@ -768,6 +883,45 @@
             });
         }
 
+        // Interactive bubbles - run away from cursor
+        const bubbles = document.querySelectorAll('.hero-bubble');
+        
+        document.addEventListener('mousemove', (e) => {
+            bubbles.forEach(bubble => {
+                const bubbleRect = bubble.getBoundingClientRect();
+                const bubbleCenterX = bubbleRect.left + bubbleRect.width / 2;
+                const bubbleCenterY = bubbleRect.top + bubbleRect.height / 2;
+                
+                const dx = bubbleCenterX - e.clientX;
+                const dy = bubbleCenterY - e.clientY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const minDistance = 200; // Distance to trigger escape
+                
+                if (distance < minDistance) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (minDistance - distance) / minDistance * 30;
+                    const moveX = Math.cos(angle) * force;
+                    const moveY = Math.sin(angle) * force;
+                    
+                    bubble.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+                } else {
+                    bubble.style.transform = 'translate(0, 0) scale(1)';
+                }
+            });
+        });
+        
+        // Bubble click animation
+        bubbles.forEach(bubble => {
+            bubble.addEventListener('click', function() {
+                this.style.opacity = '0';
+                this.style.transform = 'scale(0.5)';
+                setTimeout(() => {
+                    this.style.opacity = '0.15';
+                    this.style.transform = 'scale(1)';
+                }, 300);
+            });
+        });
+        
         const cursor = document.getElementById('ember-cursor');
         const colors = ['#c8763a','#e8a050','#ffd080','#e8e2d5','#f0c080'];
         let lastSpawn = 0;
