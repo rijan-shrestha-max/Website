@@ -43,28 +43,66 @@
         }
         
         .theme-toggle {
-            position: fixed;
+            position: absolute;
             top: 20px;
             right: 20px;
-            z-index: 10000;
-            background: var(--accent);
+            z-index: 100;
+            background: transparent;
             border: none;
-            color: var(--bg);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            color: var(--accent);
+            width: 28px;
+            height: 28px;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 12px rgba(200, 118, 58, 0.3);
+            transition: transform 0.3s ease, color 0.3s ease;
+            opacity: 0.7;
         }
         
         .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(200, 118, 58, 0.5);
+            transform: scale(1.15);
+            opacity: 1;
+        }
+        
+        .scroll-to-top {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            cursor: pointer;
+        }
+        
+        .scroll-to-top-arrow {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounceUp 2s infinite;
+        }
+        
+        .scroll-to-top-arrow::after {
+            content: '↑';
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: bold;
+            animation: chevronBounceUp 2s infinite;
+        }
+        
+        @keyframes bounceUp {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes chevronBounceUp {
+            0% { transform: translateY(2px); opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-6px); opacity: 0.6; }
         }
         
         * {
@@ -696,6 +734,9 @@
             .scroll-down { bottom: 30px; }
             .scroll-down-arrow { width: 20px; height: 20px; border-width: 1.5px; }
             .scroll-down-arrow::after { font-size: 10px; }
+            .scroll-to-top { top: 30px; }
+            .scroll-to-top-arrow { width: 20px; height: 20px; border-width: 1.5px; }
+            .scroll-to-top-arrow::after { font-size: 10px; }
             .hero-line-top-left, .hero-line-top-right { width: 40px; top: 30px; left: 30px; right: 30px; }
             .hero-corner-top-left, .hero-corner-bottom-right { width: 30px; height: 30px; top: 20px; bottom: 20px; left: 20px; right: 20px; }
             .hero-dot-1 { width: 10px; height: 10px; top: 20%; left: 15%; }
@@ -724,6 +765,8 @@
             .hero-center { font-size: 9px; }
             .scroll-down { bottom: 20px; }
             .scroll-down-arrow { width: 18px; height: 18px; }
+            .scroll-to-top { top: 20px; }
+            .scroll-to-top-arrow { width: 18px; height: 18px; }
             .hero-line-top-left, .hero-line-top-right { display: none; }
             .hero-corner-top-left, .hero-corner-bottom-right { width: 20px; height: 20px; top: 15px; bottom: 15px; left: 15px; right: 15px; }
             .hero-dot-1, .hero-dot-2, .hero-dot-3 { display: none; }
@@ -736,7 +779,6 @@
 </head>
 <body>
     <div id="ember-cursor"></div>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
     
     <section class="hero grain-bg">
         <!-- Decorative elements -->
@@ -759,6 +801,7 @@
         <div class="hero-bubble" style="width: 60px; height: 60px; bottom: 28%; left: 25%;"></div>
         
         <div class="hero-content">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
             <div class="hero-top">
                 <div class="hero-name-first">RIJAN</div>
             </div>
@@ -767,6 +810,9 @@
             </div>
             <div class="hero-bottom">
                 <div class="hero-name-last">SHRESTHA</div>
+            </div>
+            <div class="scroll-to-top">
+                <div class="scroll-to-top-arrow"></div>
             </div>
             <div class="scroll-down">
                 <div class="scroll-down-arrow"></div>
@@ -880,6 +926,14 @@
         if (scrollDownBtn) {
             scrollDownBtn.addEventListener('click', () => {
                 window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            });
+        }
+
+        // Scroll to top button
+        const scrollToTopBtn = document.querySelector('.scroll-to-top');
+        if (scrollToTopBtn) {
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
 
