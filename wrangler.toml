@@ -1,10 +1,4 @@
 name = "rijan-shrestha-portfolio"
 type = "javascript"
 account_id = ""
-workers_dev = true
-route = ""
-zone_id = ""
 compatibility_date = "2024-05-25"
-
-[env.production]
-name = "rijan-shrestha-portfolio-prod"
