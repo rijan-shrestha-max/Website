@@ -231,6 +231,94 @@
             100% { transform: translateY(2px); opacity: 0.6; }
         }
         
+        .hero-accent-line {
+            position: absolute;
+            background-color: var(--accent);
+            z-index: 2;
+        }
+        
+        .hero-line-top-left {
+            width: 60px;
+            height: 2px;
+            top: 60px;
+            left: 60px;
+            animation: slideInLeft 1s ease-out 0.3s both;
+        }
+        
+        .hero-line-top-right {
+            width: 60px;
+            height: 2px;
+            top: 60px;
+            right: 60px;
+            animation: slideInRight 1s ease-out 0.3s both;
+        }
+        
+        .hero-dot {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0.6;
+        }
+        
+        .hero-dot-1 {
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent);
+            top: 15%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .hero-dot-2 {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            bottom: 20%;
+            right: 12%;
+            animation: float 8s ease-in-out infinite 0.5s;
+        }
+        
+        .hero-dot-3 {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent);
+            top: 25%;
+            right: 15%;
+            animation: float 7s ease-in-out infinite 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 0.6; }
+            50% { transform: translateY(-20px); opacity: 0.3; }
+        }
+        
+        .hero-corner-accent {
+            position: absolute;
+            border: 1px solid var(--accent);
+            z-index: 1;
+            opacity: 0.4;
+        }
+        
+        .hero-corner-top-left {
+            width: 40px;
+            height: 40px;
+            top: 40px;
+            left: 40px;
+            border-right: none;
+            border-bottom: none;
+            animation: slideInLeft 1.2s ease-out 0.4s both;
+        }
+        
+        .hero-corner-bottom-right {
+            width: 40px;
+            height: 40px;
+            bottom: 40px;
+            right: 40px;
+            border-left: none;
+            border-top: none;
+            animation: slideInRight 1.2s ease-out 0.4s both;
+        }
+        
         .skills-strip {
             padding: 80px 60px;
             display: flex;
@@ -545,6 +633,11 @@
             .scroll-down { bottom: 30px; }
             .scroll-down-arrow { width: 20px; height: 20px; border-width: 1.5px; }
             .scroll-down-arrow::after { font-size: 10px; }
+            .hero-line-top-left, .hero-line-top-right { width: 40px; top: 30px; left: 30px; right: 30px; }
+            .hero-corner-top-left, .hero-corner-bottom-right { width: 30px; height: 30px; top: 20px; bottom: 20px; left: 20px; right: 20px; }
+            .hero-dot-1 { width: 10px; height: 10px; top: 20%; left: 15%; }
+            .hero-dot-2 { width: 6px; height: 6px; bottom: 15%; right: 10%; }
+            .hero-dot-3 { width: 5px; height: 5px; top: 30%; right: 12%; }
             .skills-strip { padding: 40px 30px; gap: 10px; }
             .skill-tag { padding: 8px 16px; font-size: 9px; }
             .portfolio-section { padding: 60px 30px; }
@@ -568,6 +661,9 @@
             .hero-center { font-size: 9px; }
             .scroll-down { bottom: 20px; }
             .scroll-down-arrow { width: 18px; height: 18px; }
+            .hero-line-top-left, .hero-line-top-right { display: none; }
+            .hero-corner-top-left, .hero-corner-bottom-right { width: 20px; height: 20px; top: 15px; bottom: 15px; left: 15px; right: 15px; }
+            .hero-dot-1, .hero-dot-2, .hero-dot-3 { display: none; }
             .portfolio-title { font-size: 24px; }
             .portfolio-filters { flex-direction: column; gap: 10px; width: 100%; }
             .portfolio-filters button { width: 100%; }
@@ -579,6 +675,15 @@
     <div id="ember-cursor"></div>
     
     <section class="hero grain-bg">
+        <!-- Decorative elements -->
+        <div class="hero-accent-line hero-line-top-left"></div>
+        <div class="hero-accent-line hero-line-top-right"></div>
+        <div class="hero-dot hero-dot-1"></div>
+        <div class="hero-dot hero-dot-2"></div>
+        <div class="hero-dot hero-dot-3"></div>
+        <div class="hero-corner-accent hero-corner-top-left"></div>
+        <div class="hero-corner-accent hero-corner-bottom-right"></div>
+        
         <div class="hero-content">
             <div class="hero-top">
                 <div class="hero-name-first">RIJAN</div>
