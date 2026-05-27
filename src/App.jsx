@@ -1,8 +1,37 @@
-import { useState } from 'react'
-import { Menu, X, ArrowRight, Github, Linkedin, Twitter, Mail } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Menu, X, ArrowRight, Github, Linkedin, Twitter, Mail, ArrowUp } from 'lucide-react'
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [bubbles] = useState([
+    { id: 1, x: 10, y: 20, size: 60 },
+    { id: 2, x: 80, y: 60, size: 40 },
+    { id: 3, x: 15, y: 70, size: 50 },
+    { id: 4, x: 85, y: 15, size: 35 },
+    { id: 5, x: 70, y: 80, size: 45 },
+  ])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollToTop(window.scrollY > 300)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const portfolioItems = [
     {
@@ -90,7 +119,23 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        {/* Animated Bubbles */}
+        {bubbles.map(bubble => (
+          <div
+            key={bubble.id}
+            className={`absolute rounded-full opacity-20 pointer-events-none bubble-${bubble.id} transition-all duration-300`}
+            style={{
+              left: `${bubble.x}%`,
+              top: `${bubble.y}%`,
+              width: `${bubble.size}px`,
+              height: `${bubble.size}px`,
+              backgroundColor: '#d97706',
+              transform: mousePos.x !== 0 ? `translate(${(mousePos.x - (bubble.x / 100 * window.innerWidth)) * -0.1}px, ${(mousePos.y - (bubble.y / 100 * window.innerHeight)) * -0.1}px)` : 'translate(0, 0)',
+            }}
+          />
+        ))}
+        
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -275,6 +320,17 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      {showScrollToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 bg-gray-900 text-white p-3 rounded-full hover:bg-gray-800 transition shadow-lg z-40"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={24} />
+        </button>
+      )}
     </div>
   )
 }

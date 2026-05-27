@@ -15,3 +15,44 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(30px, -40px); }
+  50% { transform: translate(-20px, 50px); }
+  75% { transform: translate(40px, 20px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-40px, 30px); }
+  50% { transform: translate(50px, -20px); }
+  75% { transform: translate(-30px, -40px); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(50px, 40px); }
+  50% { transform: translate(-30px, -50px); }
+  75% { transform: translate(20px, 30px); }
+}
+
+@keyframes float4 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-50px, -30px); }
+  50% { transform: translate(40px, 30px); }
+  75% { transform: translate(-40px, 20px); }
+}
+
+@keyframes float5 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(30px, 50px); }
+  50% { transform: translate(-50px, -30px); }
+  75% { transform: translate(50px, -50px); }
+}
+
+.bubble-1 { animation: float1 8s infinite ease-in-out; }
+.bubble-2 { animation: float2 10s infinite ease-in-out; }
+.bubble-3 { animation: float3 12s infinite ease-in-out; }
+.bubble-4 { animation: float4 9s infinite ease-in-out; }
+.bubble-5 { animation: float5 11s infinite ease-in-out; }
