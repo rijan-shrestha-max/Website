@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #000000;
+  --accent: #6D001A;
+  --text: #FFFFFF;
+  --muted: #888888;
+  --surface: #0f0f0f;
+  --border: #1a1a1a;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -14,6 +23,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g fill="%236D001A"><polygon points="16,2 22,14 16,10 10,14"/><polygon points="16,30 22,18 16,22 10,18"/><polygon points="2,16 14,22 10,16 14,10"/><polygon points="30,16 18,22 22,16 18,10"/><circle cx="16" cy="16" r="2" fill="%23ffffff"/><circle cx="16" cy="16" r="1.5" fill="%23cccccc"/></g></svg>') 16 16, auto;
 }
 
 @keyframes float1 {
