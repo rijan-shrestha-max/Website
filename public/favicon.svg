@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+  <rect width="150" height="150" rx="24" fill="#07080D" />
+  <path d="M12 12 L138 12 L138 122 L122 138 L12 138 Z" fill="none" stroke="#00F0FF" stroke-opacity="0.25" stroke-width="2" />
+  <!-- Rijan Shrestha Geometric Monogram -->
+  <g fill="#D5FF3F" fill-rule="evenodd">
+    <path d="M 47.5 45.5 L 30.5 62.5 C 25.5 67.5 25.5 78.5 30.5 83.5 L 47.5 100.5 Z" />
+    <path d="M 72.5 128 L 54 109.5 L 54 39.5 L 73.5 20 C 78.5 15 84.5 15 89.5 20 L 124.5 55 L 97.5 82 L 117.5 102 L 104.5 115 L 72.5 83 L 72.5 128 Z M 72.5 28.5 L 99 55 L 72.5 81.5 Z" />
+  </g>
+</svg>
